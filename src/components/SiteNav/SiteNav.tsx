@@ -1,4 +1,4 @@
-// import './style.scss';
+import './style.css';
 import React from 'react';
 
 export interface NavLinkData {
@@ -37,6 +37,7 @@ const SiteNav: React.FC<Props> = ({
     infoBtnOnClick,
 }: Props) => {
     const navLinksData = React.useMemo(() => getNavLinksData(links), [links]);
+
     return (
         <>
             <div className="esri-sub-nav-wrapper">

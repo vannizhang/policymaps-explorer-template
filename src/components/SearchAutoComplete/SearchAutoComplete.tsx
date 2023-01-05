@@ -1,4 +1,4 @@
-// import './style.scss';
+import './style.css';
 import * as React from 'react';
 import { stringFns } from 'helper-toolkit-ts';
 

@@ -1,0 +1,85 @@
+.agol-group-data-search-autocomplete {
+    position: relative;
+    width: 100%;
+}
+
+.agol-group-data-search-autocomplete .search-input-wrap{
+    position: relative;
+}
+
+.agol-group-data-search-autocomplete .search-input-wrap .input-group {
+    width: 100%;
+    margin-top: 0;
+}
+
+.agol-group-data-search-autocomplete .search-input-wrap .input-group .input-group-input, 
+.agol-group-data-search-autocomplete .search-input-wrap .input-group .btn{
+    height: 2.75rem;
+}
+
+.agol-group-data-search-autocomplete .search-input-wrap .clear-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 .35rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.agol-group-data-search-autocomplete .search-input-wrap .clear-btn svg {
+    fill: red;
+    stroke: red;
+}
+
+.agol-group-data-search-autocomplete .search-suggestion-wrap{
+    position: absolute;
+    box-sizing: border-box;
+    padding: 0;
+    border: 1px solid #efefef;
+    border-top: none;
+    width: 100%;
+    z-index: 20;
+    background-color: #ffffff;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.05);
+}
+
+.agol-group-data-search-autocomplete .search-suggestion-wrap .search-suggestion-list{
+    width: 100%;
+}
+
+.agol-group-data-search-autocomplete .search-suggestion-wrap .search-suggestion-list .suggestion-item {
+    display: flex;
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.agol-group-data-search-autocomplete .search-suggestion-wrap .search-suggestion-list .suggestion-item .item-type-icon {
+    width: 16px;
+    height: 16px;;
+}
+
+.agol-group-data-search-autocomplete .search-suggestion-wrap .search-suggestion-list .suggestion-item:hover {
+    background: #efefef;
+}
+
+.agol-group-data-search-autocomplete .search-suggestion-wrap .search-suggestion-list .suggestion-item.is-active-condidate {
+    background: #ccc;
+}
+
+.agol-group-data-search-autocomplete svg {
+    fill: #fff;
+    stroke: #fff;
+}
+
+.agol-group-data-search-autocomplete .input-minimal {
+    border-bottom-color: transparent;
+
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0iIzZlNmU2ZSI+PHBhdGggZD0iTTE0LjY1IDEzLjc0TDkuNzMyIDguODIzQTUuMzg3IDUuMzg3IDAgMSAwIDUuNSAxMC45MDRhNS4zNTggNS4zNTggMCAwIDAgMy4yODgtMS4xNDJsNC45MiA0Ljkyek01LjUgOS4yNWEzLjc1IDMuNzUgMCAxIDEgMy43NS0zLjc1MSAzLjc1MiAzLjc1MiAwIDAgMS0zLjc1IDMuNzV6Ii8+PC9zdmc+Cg==);
+    background-size: 1.06667em;
+    background-position: .25em center;
+    background-repeat: no-repeat;
+    padding-left: 1.5em;
+}
