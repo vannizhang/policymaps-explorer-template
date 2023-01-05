@@ -57,27 +57,24 @@ const { reducer } = slice;
 const { itemsLoaded, itemAdded, itemRemoved } = slice.actions;
 
 // actions
-export const loadCollectionItems = (items: AgolItem[]) => async (
-    dispatch: StoreDispatch,
-    getState: StoreGetState
-) => {
-    dispatch(itemsLoaded(items));
-};
+export const loadCollectionItems =
+    (items: AgolItem[]) =>
+    async (dispatch: StoreDispatch, getState: StoreGetState) => {
+        dispatch(itemsLoaded(items));
+    };
 
-export const toggleCollectionItem = (item: AgolItem) => (
-    dispatch: StoreDispatch,
-    getState: StoreGetState
-) => {
-    const { id } = item;
-    const state = getState();
-    const byIds = state.MyCollections.byIds;
+export const toggleCollectionItem =
+    (item: AgolItem) => (dispatch: StoreDispatch, getState: StoreGetState) => {
+        const { id } = item;
+        const state = getState();
+        const byIds = state.MyCollections.byIds;
 
-    if (!byIds[id]) {
-        dispatch(itemAdded(item));
-    } else {
-        dispatch(itemRemoved(item));
-    }
-};
+        if (!byIds[id]) {
+            dispatch(itemAdded(item));
+        } else {
+            dispatch(itemRemoved(item));
+        }
+    };
 
 // selectors
 export const myCollectionSelector = createSelector(

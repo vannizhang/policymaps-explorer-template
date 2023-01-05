@@ -17,14 +17,11 @@ const CategoryFilter: React.FC<Props> = ({
     onChange,
 }: Props) => {
     // active main catgeory that displays the all subcategory options
-    const [
-        activeMainCategoryTitle,
-        setActiveMainCategoryTitle,
-    ] = React.useState<string>();
+    const [activeMainCategoryTitle, setActiveMainCategoryTitle] =
+        React.useState<string>();
 
-    const [selectedCategory, setSelectedCategory] = React.useState<
-        SelectedCategory
-    >();
+    const [selectedCategory, setSelectedCategory] =
+        React.useState<SelectedCategory>();
 
     const toggleMainCategory = (mainCategoryTitle: string) => {
         const newVal =

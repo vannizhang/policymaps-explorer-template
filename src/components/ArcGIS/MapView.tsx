@@ -57,9 +57,9 @@ const MapView: React.FC<Props> = ({
         type Modules = [typeof IWebMap];
 
         try {
-            const [WebMap] = await (loadModules(['esri/WebMap']) as Promise<
-                Modules
-            >);
+            const [WebMap] = await (loadModules([
+                'esri/WebMap',
+            ]) as Promise<Modules>);
 
             const webmap = new WebMap({
                 portalItem: {

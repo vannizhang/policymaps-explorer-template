@@ -8,7 +8,7 @@ import { SIDEBAR_WIDTH } from '../../constants/UI';
 type Props = {
     width?: number;
     scrollToBottomHandler?: () => void;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 };
 
 const SideBar: React.FC<Props> = ({

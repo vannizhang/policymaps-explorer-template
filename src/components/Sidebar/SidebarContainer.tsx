@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-// import {
-//     loadItems,
-//     loadMoreItems,
-//     searchResultsResponseSelector,
-// } from '../../store/reducers/GroupContentSearchResults';
+import { useDispatch } from 'react-redux';
 
 import { searchItems, loadMoreItems } from '../../store/reducers/GroupContent';
 
@@ -17,7 +11,7 @@ type Props = {
     children?: React.ReactNode;
 };
 
-const SidebarContainer: React.FC = ({ children }: Props) => {
+const SidebarContainer: React.FC<Props> = ({ children }: Props) => {
     const dispatch = useDispatch();
 
     const { showMapOnly } = useContext(AppContext);
@@ -34,11 +28,15 @@ const SidebarContainer: React.FC = ({ children }: Props) => {
         searchGroupContents();
     }, []);
 
-    return !showMapOnly ? (
+    if (showMapOnly) {
+        return null;
+    }
+
+    return (
         <Sidebar scrollToBottomHandler={searchNextSetOfGroupContents}>
             {children}
         </Sidebar>
-    ) : null;
+    );
 };
 
 export default SidebarContainer;

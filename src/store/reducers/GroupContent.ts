@@ -70,14 +70,8 @@ const slice = createSlice({
     initialState: initialState4GroupContent,
     reducers: {
         itemsLoaded: (state, action: PayloadAction<SearchResponse>) => {
-            const {
-                query,
-                total,
-                start,
-                nextStart,
-                num,
-                results,
-            } = action.payload;
+            const { query, total, start, nextStart, num, results } =
+                action.payload;
 
             const allIds: string[] = [...state.items.allIds];
 
@@ -135,101 +129,102 @@ const {
     contentTypeChanged,
 } = slice.actions;
 
-export const updateSearchTerm = (searchTerm: string) => (
-    dispatch: StoreDispatch
-    // getState: StoreGetState
-): void => {
-    dispatch(searchTermChanged(searchTerm));
-    dispatch(searchItems());
-};
+export const updateSearchTerm =
+    (searchTerm: string) =>
+    (
+        dispatch: StoreDispatch
+        // getState: StoreGetState
+    ): void => {
+        dispatch(searchTermChanged(searchTerm));
+        dispatch(searchItems());
+    };
 
-export const updateContentType = (contentType: ContentType) => (
-    dispatch: StoreDispatch
-    // getState: StoreGetState
-): void => {
-    dispatch(contentTypeChanged(contentType));
-    dispatch(searchItems());
-};
+export const updateContentType =
+    (contentType: ContentType) =>
+    (
+        dispatch: StoreDispatch
+        // getState: StoreGetState
+    ): void => {
+        dispatch(contentTypeChanged(contentType));
+        dispatch(searchItems());
+    };
 
-export const updateCategory = (
-    mainCategory: string,
-    subCategories: string[] = []
-) => (
-    dispatch: StoreDispatch
-    // getState: StoreGetState
-): void => {
-    dispatch(
-        categoryChanged({
-            mainCategory,
-            subCategories,
-        })
-    );
-    dispatch(searchItems());
-};
+export const updateCategory =
+    (mainCategory: string, subCategories: string[] = []) =>
+    (
+        dispatch: StoreDispatch
+        // getState: StoreGetState
+    ): void => {
+        dispatch(
+            categoryChanged({
+                mainCategory,
+                subCategories,
+            })
+        );
+        dispatch(searchItems());
+    };
 
-export const searchItems = () => async (
-    dispatch: StoreDispatch,
-    getState: StoreGetState
-): Promise<void> => {
-    dispatch(itemsReset());
+export const searchItems =
+    () =>
+    async (dispatch: StoreDispatch, getState: StoreGetState): Promise<void> => {
+        dispatch(itemsReset());
 
-    const { GroupContent } = getState();
+        const { GroupContent } = getState();
 
-    const { filters } = GroupContent;
+        const { filters } = GroupContent;
 
-    const { searchTerm, sort, contentType, category } = filters;
+        const { searchTerm, sort, contentType, category } = filters;
 
-    try {
-        const response = await searchGroupItems({
-            searchTerm,
-            contentType,
-            sortField: sort,
-            mainCategory: category.mainCategory,
-            subCategories: category.subCategories,
-        });
+        try {
+            const response = await searchGroupItems({
+                searchTerm,
+                contentType,
+                sortField: sort,
+                mainCategory: category.mainCategory,
+                subCategories: category.subCategories,
+            });
 
-        dispatch(itemsLoaded(response));
-    } catch (err) {
-        console.error(err);
-    }
-};
+            dispatch(itemsLoaded(response));
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
 // add more items to existing search results
-export const loadMoreItems = (num = 10) => async (
-    dispatch: StoreDispatch,
-    getState: StoreGetState
-): Promise<void> => {
-    const { GroupContent } = getState();
+export const loadMoreItems =
+    (num = 10) =>
+    async (dispatch: StoreDispatch, getState: StoreGetState): Promise<void> => {
+        const { GroupContent } = getState();
 
-    const { searchResult } = GroupContent;
+        const { searchResult } = GroupContent;
 
-    if (!searchResult || searchResult.nextStart === -1) {
-        console.log('no more items to be loaded');
-        return;
-    }
+        if (!searchResult || searchResult.nextStart === -1) {
+            console.log('no more items to be loaded');
+            return;
+        }
 
-    const { filters } = GroupContent;
+        const { filters } = GroupContent;
 
-    const { searchTerm, sort, contentType, category } = filters;
+        const { searchTerm, sort, contentType, category } = filters;
 
-    try {
-        const response = await searchGroupItems({
-            start: searchResult.nextStart,
-            num,
-            searchTerm,
-            contentType,
-            sortField: sort,
-            mainCategory: category.mainCategory,
-            subCategories: category.subCategories,
-        });
+        try {
+            const response = await searchGroupItems({
+                start: searchResult.nextStart,
+                num,
+                searchTerm,
+                contentType,
+                sortField: sort,
+                mainCategory: category.mainCategory,
+                subCategories: category.subCategories,
+            });
 
-        dispatch(itemsLoaded(response));
-    } catch (err) {
-        console.error(err);
-    }
+            dispatch(itemsLoaded(response));
+        } catch (err) {
+            console.error(err);
+        }
 
-    // dispatch(itemsLoaded(response));
-};
+        // dispatch(itemsLoaded(response));
+    };
 
 export const itemsSelector = createSelector(
     (state: RootState) => state.GroupContent.items,

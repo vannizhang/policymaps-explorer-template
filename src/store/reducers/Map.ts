@@ -33,13 +33,15 @@ const { reducer } = slice;
 
 const { activeMapChanged } = slice.actions;
 
-export const setActiveMap = (item: IItem) => (
-    dispatch: StoreDispatch
-    // getState:StoreGetState
-) => {
-    updateWebmapIdInHash(item.id);
-    dispatch(activeMapChanged(item));
-};
+export const setActiveMap =
+    (item: IItem) =>
+    (
+        dispatch: StoreDispatch
+        // getState:StoreGetState
+    ) => {
+        updateWebmapIdInHash(item.id);
+        dispatch(activeMapChanged(item));
+    };
 
 // selector
 export const activeWebmapSelector = createSelector(
