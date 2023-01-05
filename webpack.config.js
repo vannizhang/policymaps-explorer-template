@@ -1,4 +1,5 @@
 const path = require('path');
+const os = require('os');
 const package = require('./package.json');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -8,6 +9,18 @@ const CopyPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const computerName = os.hostname();
+
+/**
+ * the App ID of this app only works with `arcgis.com` domain, 
+ * therefore I need to run the webpack dev server using the host name below `${computerName}.arcgis.com` instead of `localhost`.
+ * 
+ * You should update `appId` in `./src/constants/ArcGIS.ts` to use your own App ID.
+ */
+const hostname = computerName.includes('Esri') 
+    ? `${computerName}.arcgis.com` 
+    : 'localhost';
+
 module.exports =  (env, options)=> {
 
     const devMode = options.mode === 'development' ? true : false;
@@ -15,6 +28,11 @@ module.exports =  (env, options)=> {
     process.env.NODE_ENV = options.mode;
 
     return {
+        devServer: {
+            https: true,
+            host: hostname,
+            allowedHosts: "all"
+        },
         mode: options.mode,
         entry: path.resolve(__dirname, './src/index.tsx'),
         output: {

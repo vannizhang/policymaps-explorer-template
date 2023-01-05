@@ -1,7 +1,7 @@
 import './styles/index.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider as ReduxProvider } from 'react-redux';
 
 import configureAppStore, { getPreloadedState } from './store/configureStore';
@@ -21,10 +21,12 @@ import {
 import { AGOL_GROUP_ID, APP_TITLE } from './config';
 import { APP_ID, PORTAL_URL } from './constants/ArcGIS';
 import { getUserData, initEsriOAuth } from './utils/Esri-OAuth';
-import { UserSession } from '@esri/arcgis-rest-auth';
+import { ArcGISIdentityManager } from '@esri/arcgis-rest-request';
 import { Helmet } from 'react-helmet';
 
 (async () => {
+    const root = createRoot(document.getElementById('root'));
+
     let defaultOptions: DefaultOptions = {
         groupId: AGOL_GROUP_ID,
     };
@@ -36,16 +38,16 @@ import { Helmet } from 'react-helmet';
 
     if (credential) {
         const { favGroupId, baseUrl } = getUserData();
-        console.log(baseUrl);
 
-        const userSession = UserSession.fromCredential(credential);
-        console.log(userSession);
+        const identityManager = await ArcGISIdentityManager.fromToken({
+            token: credential.token,
+        });
 
         defaultOptions = {
             groupId: AGOL_GROUP_ID,
             myFavGroupId: favGroupId,
-            // userSession,
             ArcGISOnlineHost: baseUrl,
+            identidyManager: identityManager,
         };
     }
 
@@ -56,21 +58,18 @@ import { Helmet } from 'react-helmet';
 
     const preloadedState = await getPreloadedState();
 
-    ReactDOM.render(
-        <React.StrictMode>
-            <ReduxProvider store={configureAppStore(preloadedState)}>
-                <AppContextProvider
-                    categorySchema={categorySchemaJSON.categorySchema[0]}
-                    credential={null}
-                >
-                    <Helmet>
-                        <title>{APP_TITLE}</title>
-                    </Helmet>
+    root.render(
+        <ReduxProvider store={configureAppStore(preloadedState)}>
+            <AppContextProvider
+                categorySchema={categorySchemaJSON.categorySchema[0]}
+                credential={null}
+            >
+                <Helmet>
+                    <title>{APP_TITLE}</title>
+                </Helmet>
 
-                    <RootPage />
-                </AppContextProvider>
-            </ReduxProvider>
-        </React.StrictMode>,
-        document.getElementById('root')
+                <RootPage />
+            </AppContextProvider>
+        </ReduxProvider>
     );
 })();
