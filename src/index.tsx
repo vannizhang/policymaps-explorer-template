@@ -18,10 +18,11 @@ import {
     DefaultOptions,
 } from '@vannizhang/arcgis-rest-helper';
 
-import { AGOL_GROUP_ID } from './config';
+import { AGOL_GROUP_ID, APP_TITLE } from './config';
 import { APP_ID, PORTAL_URL } from './constants/ArcGIS';
 import { getUserData, initEsriOAuth } from './utils/Esri-OAuth';
 import { UserSession } from '@esri/arcgis-rest-auth';
+import { Helmet } from 'react-helmet';
 
 (async () => {
     let defaultOptions: DefaultOptions = {
@@ -62,6 +63,10 @@ import { UserSession } from '@esri/arcgis-rest-auth';
                     categorySchema={categorySchemaJSON.categorySchema[0]}
                     credential={null}
                 >
+                    <Helmet>
+                        <title>{APP_TITLE}</title>
+                    </Helmet>
+
                     <RootPage />
                 </AppContextProvider>
             </ReduxProvider>

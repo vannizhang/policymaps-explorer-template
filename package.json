@@ -1,8 +1,8 @@
 {
-  "name": "climate-policy",
-  "title": "Maps for Climate Policy",
+  "name": "policymaps-explorer-template",
+  "title": "maps explorer",
   "version": "1.0.0",
-  "description": "Maps for Climate Policy",
+  "description": "A template to stand-up a policy map like explorer app",
   "main": "index.js",
   "scripts": {
     "test": "jest --passWithNoTests",
@@ -24,15 +24,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vannizhang/climate-policy.git"
+    "url": "git+https://github.com/vannizhang/policymaps-explorer-template.git"
   },
   "keywords": [],
   "author": "Jinnan Zhang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vannizhang/climate-policy/issues"
+    "url": "https://github.com/vannizhang/policymaps-explorer-template/issues"
   },
-  "homepage": "https://github.com/vannizhang/climate-policy",
+  "homepage": "https://github.com/vannizhang/policymaps-explorer-template",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -48,6 +48,7 @@
     "@types/jest": "^26.0.15",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
+    "@types/react-helmet": "^6.1.6",
     "@types/react-redux": "^7.1.11",
     "@types/react-responsive": "^8.0.2",
     "@types/shortid": "0.0.29",
@@ -98,6 +99,7 @@
     "helper-toolkit-ts": "^1.1.13",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "shortid": "^2.2.15",
