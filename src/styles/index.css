@@ -1,0 +1,9 @@
+@import '~calcite-web/dist/css/calcite-web.min.css';
+
+#root .esri-search__container {
+    border: 1px solid rgba(0,0,0,.2);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
