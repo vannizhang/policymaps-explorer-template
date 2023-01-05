@@ -44,7 +44,7 @@ import { Helmet } from 'react-helmet';
         defaultOptions = {
             groupId: AGOL_GROUP_ID,
             myFavGroupId: favGroupId,
-            userSession,
+            // userSession,
             ArcGISOnlineHost: baseUrl,
         };
     }

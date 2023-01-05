@@ -1,37 +1,27 @@
-const os = require('os');
 const path = require('path');
 const package = require('./package.json');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
-const computerName = os.hostname();
-
-// need to use the *.arcgis.com hostname to test the esri oauth module
-// because the appId used by this app only works under the *.arcgis.com domain
-const hostname = computerName.includes('jzhang') 
-    ? `${computerName}.arcgis.com` 
-    : 'localhost';
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports =  (env, options)=> {
 
     const devMode = options.mode === 'development' ? true : false;
 
+    process.env.NODE_ENV = options.mode;
+
     return {
-        devServer: {
-            https: true,
-            host: hostname
-        },
+        mode: options.mode,
         entry: path.resolve(__dirname, './src/index.tsx'),
         output: {
             path: path.resolve(__dirname, './dist'),
             filename: '[name].[contenthash].js',
             chunkFilename: '[name].[contenthash].js',
+            clean: true
         },
         devtool: 'source-map',
         resolve: {
@@ -44,48 +34,39 @@ module.exports =  (env, options)=> {
                     loader: 'babel-loader'
                 },
                 {
-                    test: /\.s?[ac]ss$/,
+                    test: /\.css$/i,
+                    include: path.resolve(__dirname, 'src'),
                     use: [
-                        devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        MiniCssExtractPlugin.loader,
                         {
-                            loader: "css-loader", options: {
+                            loader: "css-loader", 
+                            options: {
                                 sourceMap: true
                             }
-                        }, {
-                            loader: 'resolve-url-loader',
-                        }, {
-                            loader: "sass-loader", options: {
-                                sourceMap: true
-                            }
+                        }, 
+                        {
+                            loader: 'postcss-loader'
                         }
-                    ]
+                    ],
                 },
-                { test: /\.woff$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-                { test: /\.ttf$/,  loader: "url-loader?limit=10000&mimetype=application/octet-stream" },
-                { test: /\.eot$/,  loader: "file-loader" },
                 { 
-                    test: /\.svg$/,  
-                    loader: "url-loader",
+                    test: /\.(woff|woff2|ttf|eot)$/,  
+                    loader: "file-loader",
                     options: {
-                        limit: 10000,
-                        fallback: {
-                            loader: "file-loader"
-                        }
+                        name: '[name].[contenthash].[ext]',
                     }
                 },
-                {   
-                    test: /\.(png|jpg|gif)$/,  
-                    loader: "url-loader",
+                { 
+                    test: /\.(png|jpg|gif|svg)$/,  
+                    loader: "file-loader",
                     options: {
-                        limit: 10000,
-                        fallback: {
-                            loader: "file-loader"
-                        }
+                        name: '[name].[contenthash].[ext]',
                     }
-                }
+                },
             ]
         },
         plugins: [
+            // need to use ForkTsCheckerWebpackPlugin because Babel loader ignores the compilation errors for Typescript
             new ForkTsCheckerWebpackPlugin(),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
@@ -107,15 +88,15 @@ module.exports =  (env, options)=> {
             new HtmlWebpackPlugin({
                 template: './public/index.html',
                 filename: 'index.html',
-                title: package.title,
+                title: package.name,
                 meta: {
-                    title: package.title,
+                    title: package.name,
                     description: package.description,
                     author: package.author,
                     keywords: Array.isArray(package.keywords) 
                         ? package.keywords.join(',') 
                         : undefined,
-                    'og:title': package.title,
+                    'og:title': package.name,
                     'og:description': package.description,
                     'og:url': package.homepage,
                 },
@@ -134,14 +115,12 @@ module.exports =  (env, options)=> {
                     useShortDoctype                : true
                 }
             }),
-            !devMode ? new CleanWebpackPlugin() : false,
-            !devMode ? new BundleAnalyzerPlugin() : false
+            // !devMode ? new CleanWebpackPlugin() : false,
+            // !devMode ? new BundleAnalyzerPlugin() : false
         ].filter(Boolean),
         optimization: {
             splitChunks: {
                 cacheGroups: {
-                    default: false,
-                    vendors: false,
                     // vendor chunk
                     vendor: {
                         // sync + async chunks
@@ -161,7 +140,7 @@ module.exports =  (env, options)=> {
                         }
                     }
                 }), 
-                new OptimizeCSSAssets({})
+                new CssMinimizerPlugin()
             ]
         },
     }

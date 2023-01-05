@@ -1,4 +1,4 @@
-import './style.scss';
+// import './style.scss';
 import * as React from 'react';
 import { stringFns } from 'helper-toolkit-ts';
 
@@ -25,10 +25,8 @@ const SearchAutoComplete: React.FC<Props> = ({
 
     const [searchTerm, setSearchTerm] = React.useState<string>('');
     const [suggestions, setSuggestions] = React.useState<SuggestResult[]>([]);
-    const [
-        suggestionCandidateIndex,
-        setSuggestionCandidateIndex,
-    ] = React.useState<number>(-1);
+    const [suggestionCandidateIndex, setSuggestionCandidateIndex] =
+        React.useState<number>(-1);
 
     const searchSuggestions = async (val = '') => {
         try {

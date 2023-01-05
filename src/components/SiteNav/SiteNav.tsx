@@ -1,4 +1,4 @@
-import './style.scss';
+// import './style.scss';
 import React from 'react';
 
 export interface NavLinkData {

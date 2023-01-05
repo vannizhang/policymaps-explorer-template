@@ -1,4 +1,4 @@
-import './style.scss';
+// import './style.scss';
 import * as React from 'react';
 import classnames from 'classnames';
 

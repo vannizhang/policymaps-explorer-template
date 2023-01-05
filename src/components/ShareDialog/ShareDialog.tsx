@@ -1,21 +1,13 @@
 import React from 'react';
 import { SupportedSocialMedia } from './ShareDialogContainer';
-// import AddToMyFavBtn from './AddToMyFavBtn';
+
 type Props = {
     currentUrl: string;
     onClose?: () => void;
-    // addToMyFavBtnOnClick:()=>void;
-    // sendEmailOnClick: ()=>void;
     shareToSocialMediaOnClick: (name: SupportedSocialMedia) => void;
 };
 
-const ShareDialog: React.FC<Props> = ({
-    currentUrl,
-    onClose,
-}: // addToMyFavBtnOnClick,
-// sendEmailOnClick,
-// shareToSocialMediaOnClick,
-Props) => {
+const ShareDialog: React.FC<Props> = ({ currentUrl, onClose }: Props) => {
     const textInputRef = React.useRef<HTMLInputElement>();
 
     const copyUrl = () => {
@@ -77,10 +69,6 @@ Props) => {
                     </button>
                 </span>
             </div>
-
-            {/* <div className="leader-half">
-                <AddToMyFavBtn />
-            </div> */}
         </div>
     );
 };

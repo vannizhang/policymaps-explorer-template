@@ -14,11 +14,8 @@ interface Props {
 
     isActiveItemOnMap?: boolean;
     isInCollection?: boolean;
-    // isMyFav?:boolean;
-
     viewBtnOnClick: (item: AgolItem) => void;
     toggleCollectBtnOnClick: (item: AgolItem) => void;
-    // toggleAsMyFavBtnOnClick: (item:IItem)=>void;
 }
 
 const RegularCard: React.FC<Props> = ({
@@ -31,46 +28,10 @@ const RegularCard: React.FC<Props> = ({
 
     isActiveItemOnMap = false,
     isInCollection = false,
-    // isMyFav=false,
 
     viewBtnOnClick,
     toggleCollectBtnOnClick,
-}: // toggleCollectBtnOnClick,
-// toggleAsMyFavBtnOnClick
-Props) => {
-    // const getMyFavIcon = ()=>{
-    //     return (
-    //         <div
-    //             style={{
-    //                 'position': 'absolute',
-    //                 'display': 'flex',
-    //                 'justifyContent': 'center',
-    //                 'alignItems': 'center',
-    //                 'top': '.3rem',
-    //                 'right': '.3rem',
-    //                 // 'padding': '.25rem',
-    //                 'height': '20px',
-    //                 'width': '20px',
-    //                 'backgroundColor': 'rgba(0, 0, 0, 0.4)',
-    //                 'borderRadius': '50%',
-    //                 'fill': isMyFav ? '#ffee33' : 'rgba(255, 255, 255, 0.9)',
-    //                 'zIndex': 5,
-    //                 'boxSizing': 'border-box'
-    //             }}
-    //             className='cursor-pointer'
-    //             title={ isMyFav ? 'Remove from Favorites' : 'Add to Favorites'}
-    //             onClick={toggleAsMyFavBtnOnClick.bind(this, item)}
-    //         >
-    //             <svg
-    //                 height="16"
-    //                 width="16"
-    //                 viewBox="0 0 16 16">
-    //                 <path d="M7.998.2l1.885 5.816h6.094l-4.93 3.586 1.894 5.813-4.943-3.597-4.944 3.597 1.893-5.813-4.97-3.586h6.135z"></path>
-    //             </svg>
-    //         </div>
-    //     );
-    // }
-
+}: Props) => {
     return (
         <div
             className="card"

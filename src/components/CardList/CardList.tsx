@@ -9,7 +9,7 @@ export interface CardListData {
     data: AgolItem;
     inCollection?: boolean;
     isActiveItemOnMap?: boolean;
-    isMyFav?: boolean;
+    // isMyFav?: boolean;
 }
 
 interface Props {
@@ -18,7 +18,6 @@ interface Props {
     itemCount: number;
     viewBtnOnClick: (item: AgolItem) => void;
     toggleCollectBtnOnClick: (item: AgolItem) => void;
-    // toggleAsMyFavBtnOnClick: (item:IItem)=>void;
 }
 
 const CardList: React.FC<Props> = ({
@@ -27,9 +26,7 @@ const CardList: React.FC<Props> = ({
     itemCount = 0,
     toggleCollectBtnOnClick,
     viewBtnOnClick,
-}: // toggleCollectBtnOnClick,
-// toggleAsMyFavBtnOnClick
-Props) => {
+}: Props) => {
     const [isHide, setIsHide] = React.useState<boolean>(false);
 
     const toggleList = () => {
@@ -53,11 +50,8 @@ Props) => {
                         item={data}
                         isActiveItemOnMap={isActiveItemOnMap}
                         isInCollection={inCollection}
-                        // isMyFav={isMyFav}
-
                         viewBtnOnClick={viewBtnOnClick}
                         toggleCollectBtnOnClick={toggleCollectBtnOnClick}
-                        // toggleAsMyFavBtnOnClick={toggleAsMyFavBtnOnClick}
                     />
                 </div>
             );

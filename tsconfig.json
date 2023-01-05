@@ -16,7 +16,7 @@
             "./src/types", 
             "./node_modules/@types"
         ],
-        "lib": [ "es2015", "dom" ]
+        "lib": [ "es2015", "dom" ],
     },
     "exclude": [
         "**/node_modules", 

@@ -13,7 +13,7 @@ import {
 
 export type UIState = {
     // isSidebarVisible: boolean;
-    isCategoryFilterVisible: boolean;
+    isCategoryFilterVisible?: boolean;
 };
 
 export const initialUIState = {
