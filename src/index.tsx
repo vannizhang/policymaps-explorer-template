@@ -8,8 +8,8 @@ import configureAppStore, { getPreloadedState } from './store/configureStore';
 
 import AppContextProvider from './contexts/AppContextProvider';
 
-import { APP_TITLE } from './config';
-import { APP_ID, PORTAL_URL } from './constants/ArcGIS';
+import { AGOL_HOST, APP_TITLE } from './config';
+import { APP_ID } from './constants/ArcGIS';
 import { initEsriOAuth } from './utils/Esri-OAuth';
 import { Helmet } from 'react-helmet';
 import { loadGroupCategorySchema } from './services/portal-group-content';
@@ -20,7 +20,7 @@ import { Layout } from './components/Layout/Layout';
 
     await initEsriOAuth({
         appId: APP_ID,
-        portalUrl: PORTAL_URL,
+        portalUrl: AGOL_HOST,
     });
 
     const categorySchemaJSON = await loadGroupCategorySchema();
