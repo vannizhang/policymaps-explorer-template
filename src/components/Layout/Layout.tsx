@@ -9,11 +9,23 @@ import {
     CategoryFilter,
     MapViewContainer,
 } from '../';
-import { APP_TITLE, HIDE_MY_COLLECTIONS } from '../../config';
+import {
+    APP_TITLE,
+    HIDE_MY_COLLECTIONS,
+    SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES,
+} from '../../config';
 import { AppContext } from '../../contexts/AppContextProvider';
 
 export const Layout = () => {
     const { inIframe } = useContext(AppContext);
+
+    const shouldShowMyCollections = () => {
+        if (HIDE_MY_COLLECTIONS || SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES) {
+            return false;
+        }
+
+        return true;
+    };
 
     return (
         <>
@@ -38,9 +50,11 @@ export const Layout = () => {
 
                     <CategoryFilter />
 
-                    {HIDE_MY_COLLECTIONS === false && <MyCollections />}
+                    {shouldShowMyCollections() && <MyCollections />}
 
-                    <SearchResults />
+                    {!SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES && (
+                        <SearchResults />
+                    )}
                 </Sidebar>
 
                 <MapViewContainer />

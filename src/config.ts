@@ -17,3 +17,8 @@ export const APP_TITLE = 'App Title';
  * if true, hide 'My Collection' component should be included or not
  */
 export const HIDE_MY_COLLECTIONS = false;
+
+/**
+ * if true, the search results should be grouped by content categoris
+ */
+export const SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES = false;

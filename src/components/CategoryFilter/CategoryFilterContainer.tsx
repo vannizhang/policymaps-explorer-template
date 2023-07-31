@@ -9,6 +9,7 @@ import { updateCategory } from '../../store/reducers/GroupContent';
 import { AppContext } from '../../contexts/AppContextProvider';
 
 import CategoryFilter, { SelectedCategory } from './CategoryFilter';
+import { SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES } from '../../config';
 
 const CategoryFilterContainer = () => {
     const dispatch = useDispatch();
@@ -31,6 +32,10 @@ const CategoryFilterContainer = () => {
         dispatch(updateCategory(data.title, data.subcategories));
         // searchItems();
     };
+
+    if (SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES) {
+        return null;
+    }
 
     return categorySchema ? (
         <div
