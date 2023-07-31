@@ -8,11 +8,11 @@ import {
     SearchInput,
     CategoryFilter,
     MapViewContainer,
-} from '../../components';
+} from '../';
 import { APP_TITLE, HIDE_MY_COLLECTIONS } from '../../config';
 import { AppContext } from '../../contexts/AppContextProvider';
 
-const RootPage = () => {
+export const Layout = () => {
     const { inIframe } = useContext(AppContext);
 
     return (
@@ -48,5 +48,3 @@ const RootPage = () => {
         </>
     );
 };
-
-export default RootPage;

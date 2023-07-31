@@ -7,13 +7,13 @@ import { Provider as ReduxProvider } from 'react-redux';
 import configureAppStore, { getPreloadedState } from './store/configureStore';
 
 import AppContextProvider from './contexts/AppContextProvider';
-import { RootPage } from './pages';
 
 import { APP_TITLE } from './config';
 import { APP_ID, PORTAL_URL } from './constants/ArcGIS';
 import { initEsriOAuth } from './utils/Esri-OAuth';
 import { Helmet } from 'react-helmet';
 import { loadGroupCategorySchema } from './services/portal-group-content';
+import { Layout } from './components/Layout/Layout';
 
 (async () => {
     const root = createRoot(document.getElementById('root'));
@@ -38,7 +38,7 @@ import { loadGroupCategorySchema } from './services/portal-group-content';
                     <title>{APP_TITLE}</title>
                 </Helmet>
 
-                <RootPage />
+                <Layout />
             </AppContextProvider>
         </ReduxProvider>
     );
