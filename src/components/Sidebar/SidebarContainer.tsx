@@ -6,6 +6,7 @@ import { searchItems, loadMoreItems } from '../../store/reducers/GroupContent';
 import { AppContext } from '../../contexts/AppContextProvider';
 
 import Sidebar from './Sidebar';
+import { SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES } from '../../config';
 
 type Props = {
     children?: React.ReactNode;
@@ -17,12 +18,16 @@ const SidebarContainer: React.FC<Props> = ({ children }: Props) => {
     const { showMapOnly } = useContext(AppContext);
 
     const searchNextSetOfGroupContents = async () => {
+        if (SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES) {
+            return;
+        }
+
         dispatch(loadMoreItems(30));
     };
 
-    const searchGroupContents = useCallback(async () => {
+    const searchGroupContents = async () => {
         dispatch(searchItems());
-    }, []);
+    };
 
     useEffect(() => {
         searchGroupContents();

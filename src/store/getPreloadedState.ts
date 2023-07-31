@@ -19,7 +19,7 @@ const getPreloadedGroupContentState = (): GroupContentState => {
         filters: {
             ...initialState4GroupContent.filters,
             sort: 'modified',
-            contentType: 'webmap',
+            contentType: '', //'webmap',
         },
     };
 };

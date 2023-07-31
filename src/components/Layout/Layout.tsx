@@ -8,6 +8,7 @@ import {
     SearchInput,
     CategoryFilter,
     MapViewContainer,
+    SearchResultsByCategories,
 } from '../';
 import {
     APP_TITLE,
@@ -52,7 +53,9 @@ export const Layout = () => {
 
                     {shouldShowMyCollections() && <MyCollections />}
 
-                    {!SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES && (
+                    {SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES ? (
+                        <SearchResultsByCategories />
+                    ) : (
                         <SearchResults />
                     )}
                 </Sidebar>

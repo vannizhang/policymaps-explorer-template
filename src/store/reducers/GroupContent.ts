@@ -18,6 +18,7 @@ import {
     SortOrder,
 } from '../../services/portal-group-content/config';
 import { IItem } from '@esri/arcgis-rest-portal';
+import { SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES } from '../../config';
 
 // no need to keep results in the "searchResult" state, as the results will be saved in "items" state.
 export type SearchResult = Omit<SearchResponse, 'results'>;
@@ -177,13 +178,19 @@ export const searchItems =
         const { searchTerm, sort, contentType, category } = filters;
 
         try {
-            const response = await searchGroupItems({
-                searchTerm,
-                contentType,
-                sortField: sort,
-                mainCategory: category.mainCategory,
-                subCategories: category.subCategories,
-            });
+            const response = SHOULD_GROUP_SEARCH_RESULTS_BY_CATEGORIES
+                ? await searchGroupItems({
+                      searchTerm,
+                      contentType,
+                      num: 1000,
+                  })
+                : await searchGroupItems({
+                      searchTerm,
+                      contentType,
+                      sortField: sort,
+                      mainCategory: category.mainCategory,
+                      subCategories: category.subCategories,
+                  });
 
             dispatch(itemsLoaded(response));
         } catch (err) {

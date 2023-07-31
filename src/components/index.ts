@@ -12,3 +12,4 @@ export { default as MapViewContainer } from './MapViewContainer/MapViewContainer
 export { default as CategoryFilter } from './CategoryFilter/CategoryFilterContainer';
 export { default as SearchAutoComplete } from './SearchAutoComplete/SearchAutoComplete';
 export { default as ActiveMapSwitcher } from './ActiveMapSwitcher/ActiveMapSwitcherContainer';
+export { SearchResultsByCategoriesContainer as SearchResultsByCategories } from './SearchResultsByCategories/SearchResultsByCategoriesContainer';
