@@ -6,6 +6,7 @@ import IdentityManager from 'esri/identity/IdentityManager';
 import IPortal from 'esri/portal/Portal';
 import ICredential from 'esri/identity/Credential';
 import IPortalUser from 'esri/portal/PortalUser';
+import { AGOL_HOST } from '../../config';
 
 type Props = {
     appId: string;
@@ -194,9 +195,13 @@ export const getUserData = (): UserData => {
     };
 };
 
-const getPortalBaseUrl = () => {
+/**
+ * Get Base URL of ArcGIS Online Portal of the signed in user.
+ * @returns
+ */
+export const getPortalBaseUrl = () => {
     if (!userPortal) {
-        return null;
+        return AGOL_HOST;
     }
 
     const { urlKey, url, customBaseUrl } = userPortal;
@@ -204,9 +209,63 @@ const getPortalBaseUrl = () => {
     return urlKey ? `https://${urlKey}.${customBaseUrl}` : `${url}`;
 };
 
+/**
+ * call this function to direct to the switch account page on ArcGIS Online
+ */
 export const switchAccount = () => {
     const portalBaseUrl = getPortalBaseUrl();
     const redirectUri = `${window.location.origin}${window.location.pathname}index.html`;
     const targetUrl = `${portalBaseUrl}/home/pages/Account/manage_accounts.html#redirect_uri=${redirectUri}&client_id=arcgisonline`;
     window.open(targetUrl, '_blank');
+};
+
+/**
+ * Check and see if user is signed or not
+ * @returns boolean return false if not signed in yet
+ */
+export const isAnonymouns = () => {
+    return credential === null;
+};
+
+/**
+ * Get the Token from the credential of signed in user
+ * @returns
+ */
+export const getToken = () => {
+    if (!credential) {
+        return '';
+    }
+
+    return credential.token;
+};
+
+/**
+ * Get Portal User instance for signed-in user
+ * @returns IPortalUser
+ */
+export const getSignedInUser = () => {
+    return userPortal?.user || null;
+};
+
+/**
+ * get the id of "My Favorites" group of the signed in user
+ */
+export const getMyFavoritesGroupId = () => {
+    if (!userPortal) {
+        return '';
+    }
+
+    const user: IPortalUser & {
+        favGroupId?: string;
+    } = userPortal.user;
+
+    return user?.favGroupId;
+};
+
+/**
+ * Get Portal Instance for signed in user
+ * @returns
+ */
+export const getUserPortal = () => {
+    return userPortal;
 };

@@ -6,12 +6,12 @@ import {
 } from '../../store/reducers/GroupContent';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { AgolItem } from '@vannizhang/arcgis-rest-helper';
 
 import CardListContainer from './CardListContainer';
+import { IItem } from '@esri/arcgis-rest-portal';
 
 const SearchResultsContainer = () => {
-    const searchResults: AgolItem[] = useSelector(itemsSelector);
+    const searchResults: IItem[] = useSelector(itemsSelector);
 
     const searchResponse = useSelector(searchResultSelector);
 

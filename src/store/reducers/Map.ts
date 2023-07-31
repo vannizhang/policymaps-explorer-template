@@ -6,9 +6,8 @@ import {
     // StoreGetState
 } from '../configureStore';
 
-import { IItem } from '@esri/arcgis-rest-types';
-
 import { updateWebmapIdInHash } from '../../utils/hash-params-manager/hashParamsManager';
+import { IItem } from '@esri/arcgis-rest-portal';
 
 type MapState = {
     activeWebmap: IItem;

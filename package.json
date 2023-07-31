@@ -84,7 +84,6 @@
     "@reduxjs/toolkit": "1.8",
     "@types/arcgis-js-api": "4.25",
     "@types/react": "^18.0.26",
-    "@vannizhang/arcgis-rest-helper": "^1.0.15",
     "axios": "^0.21.2",
     "calcite-web": "github:Esri/calcite-web#v1.2.5",
     "classnames": "^2.2.6",

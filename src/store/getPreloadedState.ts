@@ -6,12 +6,12 @@ import {
     GroupContentState,
 } from '../store/reducers/GroupContent';
 
-import { searchGroupItemsByIds } from '@vannizhang/arcgis-rest-helper';
 import {
     MyCollectionsState,
     initialMyCollectionsState,
 } from './reducers/MyCollections';
 import { getValueFromHashParams } from '../utils/hash-params-manager/hashParamsManager';
+import { searchGroupItemsByIds } from '../services/portal-group-content';
 
 const getPreloadedGroupContentState = (): GroupContentState => {
     return {

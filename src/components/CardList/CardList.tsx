@@ -1,12 +1,12 @@
-// import { IItem } from '@esri/arcgis-rest-types';
-import { AgolItem } from '@vannizhang/arcgis-rest-helper';
 import React from 'react';
 import Card from './Card';
+import { IItem } from '@esri/arcgis-rest-portal';
+import { getThumbnailURL } from '../../utils/agol-item-helpers';
 
 // import { AgolItem } from '../../../utils/arcgis-online-group-data';
 
 export interface CardListData {
-    data: AgolItem;
+    item: IItem;
     inCollection?: boolean;
     isActiveItemOnMap?: boolean;
     // isMyFav?: boolean;
@@ -14,15 +14,15 @@ export interface CardListData {
 
 interface Props {
     title: string;
-    items: CardListData[];
+    data: CardListData[];
     itemCount: number;
-    viewBtnOnClick: (item: AgolItem) => void;
-    toggleCollectBtnOnClick: (item: AgolItem) => void;
+    viewBtnOnClick: (item: IItem) => void;
+    toggleCollectBtnOnClick: (item: IItem) => void;
 }
 
 const CardList: React.FC<Props> = ({
     title = '',
-    items = [],
+    data = [],
     itemCount = 0,
     toggleCollectBtnOnClick,
     viewBtnOnClick,
@@ -34,10 +34,10 @@ const CardList: React.FC<Props> = ({
     };
 
     const getList = () => {
-        const cards = items.map((item) => {
-            const { data, isActiveItemOnMap, inCollection } = item;
+        const cards = data.map((d) => {
+            const { item, isActiveItemOnMap, inCollection } = d;
 
-            const { title, snippet, id, thumbnailUrl, agolItemUrl } = data;
+            const { title, snippet, id, agolItemUrl } = item;
 
             return (
                 <div key={`list-item-${id}`} className="block trailer-half">
@@ -46,8 +46,8 @@ const CardList: React.FC<Props> = ({
                         description={snippet}
                         link={agolItemUrl}
                         itemId={id}
-                        imageUrl={thumbnailUrl}
-                        item={data}
+                        imageUrl={getThumbnailURL({ item })}
+                        item={item}
                         isActiveItemOnMap={isActiveItemOnMap}
                         isInCollection={inCollection}
                         viewBtnOnClick={viewBtnOnClick}

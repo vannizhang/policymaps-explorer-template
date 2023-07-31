@@ -11,15 +11,14 @@ import { activeWebmapSelector, setActiveMap } from '../../store/reducers/Map';
 import { MapView, SearchWidget } from '../ArcGIS';
 
 import { TopNav, LegendWidget, LayerList } from '../';
-import { IItem } from '@esri/arcgis-rest-types';
 
 import {
     getValueFromHashParams,
     updateMapLocationInHash,
     MapCenterLocation,
 } from '../../utils/hash-params-manager/hashParamsManager';
-
-import { searchGroupItems } from '@vannizhang/arcgis-rest-helper';
+import { searchGroupItems } from '../../services/portal-group-content';
+import { IItem } from '@esri/arcgis-rest-portal';
 
 const webmapIdFromHashParam = getValueFromHashParams('webmapId') as string;
 

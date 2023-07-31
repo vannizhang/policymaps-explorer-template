@@ -4,25 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { activeWebmapSelector, setActiveMap } from '../../store/reducers/Map';
 
-import {
-    itemsSelector,
-    searchResultSelector,
-} from '../../store/reducers/GroupContent';
-
-import { AgolItem } from '@vannizhang/arcgis-rest-helper';
-
 import CardList, { CardListData } from './CardList';
 
-import { IItem } from '@esri/arcgis-rest-types';
 import {
     myCollectionSelector,
     toggleCollectionItem,
 } from '../../store/reducers/MyCollections';
+import { IItem } from '@esri/arcgis-rest-portal';
 // import { SearchResponse } from '../../utils/arcgis-online-group-data';
 
 interface Props {
     title: string;
-    data: AgolItem[];
+    data: IItem[];
     itemCount?: number;
 }
 
@@ -35,7 +28,7 @@ const CardListContainer: React.FC<Props> = ({
 
     const activeWebmap: IItem = useSelector(activeWebmapSelector);
 
-    const myCollections: AgolItem[] = useSelector(myCollectionSelector);
+    const myCollections: IItem[] = useSelector(myCollectionSelector);
 
     const cardListData = useMemo((): CardListData[] => {
         const myCollectionsItemIds = myCollections.map((d) => d.id);
@@ -43,7 +36,7 @@ const CardListContainer: React.FC<Props> = ({
 
         return data.map((item) => {
             return {
-                data: item,
+                item,
                 isActiveItemOnMap: activeWebmap && activeWebmap.id === item.id,
                 inCollection: myCollectionsItemIds.indexOf(item.id) > -1,
             };
@@ -52,7 +45,7 @@ const CardListContainer: React.FC<Props> = ({
 
     return (
         <CardList
-            items={cardListData}
+            data={cardListData}
             itemCount={itemCount}
             title={title}
             viewBtnOnClick={(item) => {

@@ -6,12 +6,11 @@ import {
 } from '@reduxjs/toolkit';
 
 import { RootState, StoreDispatch, StoreGetState } from '../configureStore';
-
-import { AgolItem } from '@vannizhang/arcgis-rest-helper';
+import { IItem } from '@esri/arcgis-rest-portal';
 
 export interface MyCollectionsState {
     byIds: {
-        [key: string]: AgolItem;
+        [key: string]: IItem;
     };
     allIds: string[];
 }
@@ -25,7 +24,7 @@ const slice = createSlice({
     name: 'myCollections',
     initialState: initialMyCollectionsState,
     reducers: {
-        itemsLoaded: ({ byIds, allIds }, action: PayloadAction<AgolItem[]>) => {
+        itemsLoaded: ({ byIds, allIds }, action: PayloadAction<IItem[]>) => {
             const items = action.payload;
 
             items.forEach((item) => {
@@ -34,14 +33,14 @@ const slice = createSlice({
                 allIds.push(id);
             });
         },
-        itemAdded: ({ byIds, allIds }, action: PayloadAction<AgolItem>) => {
+        itemAdded: ({ byIds, allIds }, action: PayloadAction<IItem>) => {
             const item = action.payload;
             const { id } = item;
 
             byIds[id] = item;
             allIds.push(id);
         },
-        itemRemoved: ({ byIds, allIds }, action: PayloadAction<AgolItem>) => {
+        itemRemoved: ({ byIds, allIds }, action: PayloadAction<IItem>) => {
             const item = action.payload;
             const { id } = item;
             const index = allIds.indexOf(id);
@@ -58,13 +57,13 @@ const { itemsLoaded, itemAdded, itemRemoved } = slice.actions;
 
 // actions
 export const loadCollectionItems =
-    (items: AgolItem[]) =>
+    (items: IItem[]) =>
     async (dispatch: StoreDispatch, getState: StoreGetState) => {
         dispatch(itemsLoaded(items));
     };
 
 export const toggleCollectionItem =
-    (item: AgolItem) => (dispatch: StoreDispatch, getState: StoreGetState) => {
+    (item: IItem) => (dispatch: StoreDispatch, getState: StoreGetState) => {
         const { id } = item;
         const state = getState();
         const byIds = state.MyCollections.byIds;

@@ -9,14 +9,15 @@ import {
 
 import { RootState, StoreDispatch, StoreGetState } from '../configureStore';
 
+import { searchGroupItems } from '../../services/portal-group-content';
+
 import {
-    searchGroupItems,
     ContentType,
     SearchResponse,
     SortField,
     SortOrder,
-    AgolItem,
-} from '@vannizhang/arcgis-rest-helper';
+} from '../../services/portal-group-content/config';
+import { IItem } from '@esri/arcgis-rest-portal';
 
 // no need to keep results in the "searchResult" state, as the results will be saved in "items" state.
 export type SearchResult = Omit<SearchResponse, 'results'>;
@@ -38,7 +39,7 @@ type Filters = {
 export type GroupContentState = {
     items: {
         byId: {
-            [key: string]: AgolItem;
+            [key: string]: IItem;
         };
         allIds: string[];
     };

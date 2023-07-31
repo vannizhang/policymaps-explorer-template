@@ -1,8 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { stringFns } from 'helper-toolkit-ts';
-// import { IItem } from '@esri/arcgis-rest-types';
-import { AgolItem } from '@vannizhang/arcgis-rest-helper';
+import { IItem } from '@esri/arcgis-rest-portal';
 
 interface Props {
     title: string;
@@ -10,12 +9,12 @@ interface Props {
     description: string;
     itemId: string;
     imageUrl: string;
-    item?: AgolItem;
+    item?: IItem;
 
     isActiveItemOnMap?: boolean;
     isInCollection?: boolean;
-    viewBtnOnClick: (item: AgolItem) => void;
-    toggleCollectBtnOnClick: (item: AgolItem) => void;
+    viewBtnOnClick: (item: IItem) => void;
+    toggleCollectBtnOnClick: (item: IItem) => void;
 }
 
 const RegularCard: React.FC<Props> = ({
