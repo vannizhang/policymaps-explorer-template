@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { stringFns } from 'helper-toolkit-ts';
 import { IItem } from '@esri/arcgis-rest-portal';
+import { getItemUrl } from '../../utils/agol-item-helpers';
 
 interface Props {
     title: string;
@@ -52,7 +53,11 @@ const RegularCard: React.FC<Props> = ({
             <div className="card-content">
                 <div>
                     <p className="font-size--1 trailer-quarter">
-                        <a href={link} target="_blank" rel="noreferrer">
+                        <a
+                            href={getItemUrl(item)}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             {stringFns.trunc(title, 50, true)}
                         </a>
                     </p>

@@ -20,6 +20,7 @@ import {
 import { searchGroupItems } from '../../services/portal-group-content';
 import { IItem } from '@esri/arcgis-rest-portal';
 import { BACKGROUND_WEB_MAP_ID } from '../../config';
+import { LayerView } from '../LayerView/LayerView';
 
 const webmapIdFromHashParam = getValueFromHashParams('webmapId') as string;
 
@@ -106,6 +107,14 @@ const MapViewContainer = () => {
                     <LegendWidget />
 
                     <LayerList />
+
+                    <LayerView
+                        item={
+                            activeItem && activeItem.type !== 'Web Map'
+                                ? activeItem
+                                : null
+                        }
+                    />
                 </MapView>
             ) : null}
 
