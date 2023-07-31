@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { activeWebmapSelector, setActiveMap } from '../../store/reducers/Map';
+import { activeItemSelector, setActiveItem } from '../../store/reducers/Map';
 
 import CardList, { CardListData } from './CardList';
 
@@ -27,7 +27,7 @@ const CardListContainer: React.FC<Props> = ({
 }) => {
     const dispatch = useDispatch();
 
-    const activeWebmap: IItem = useSelector(activeWebmapSelector);
+    const activeItem: IItem = useSelector(activeItemSelector);
 
     const myCollections: IItem[] = useSelector(myCollectionSelector);
 
@@ -38,11 +38,11 @@ const CardListContainer: React.FC<Props> = ({
         return data.map((item) => {
             return {
                 item,
-                isActiveItemOnMap: activeWebmap && activeWebmap.id === item.id,
+                isActiveItemOnMap: activeItem && activeItem.id === item.id,
                 inCollection: myCollectionsItemIds.indexOf(item.id) > -1,
             };
         });
-    }, [data, myCollections, activeWebmap]);
+    }, [data, myCollections, activeItem]);
 
     return (
         <CardList
@@ -51,7 +51,7 @@ const CardListContainer: React.FC<Props> = ({
             title={title}
             shouldHideCollectButton={HIDE_MY_COLLECTIONS}
             viewBtnOnClick={(item) => {
-                dispatch(setActiveMap(item as IItem));
+                dispatch(setActiveItem(item as IItem));
             }}
             toggleCollectBtnOnClick={(item) => {
                 dispatch(toggleCollectionItem(item));

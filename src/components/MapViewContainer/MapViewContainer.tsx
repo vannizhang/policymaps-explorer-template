@@ -6,7 +6,7 @@ import { AppContext } from '../../contexts/AppContextProvider';
 
 import { SEARCH_WIDGET_CONTAINER_ID, SIDEBAR_WIDTH } from '../../constants/UI';
 
-import { activeWebmapSelector, setActiveMap } from '../../store/reducers/Map';
+import { activeItemSelector, setActiveItem } from '../../store/reducers/Map';
 
 import { MapView, SearchWidget } from '../ArcGIS';
 
@@ -19,6 +19,7 @@ import {
 } from '../../utils/hash-params-manager/hashParamsManager';
 import { searchGroupItems } from '../../services/portal-group-content';
 import { IItem } from '@esri/arcgis-rest-portal';
+import { BACKGROUND_WEB_MAP_ID } from '../../config';
 
 const webmapIdFromHashParam = getValueFromHashParams('webmapId') as string;
 
@@ -33,10 +34,10 @@ const MapViewContainer = () => {
         // arcgisOnlineGroupId,
     } = useContext(AppContext);
 
-    const activeWebmap: IItem = useSelector(activeWebmapSelector);
+    const activeItem: IItem = useSelector(activeItemSelector);
 
     const loadActiveWebmap = async () => {
-        if (!activeWebmap) {
+        if (!activeItem) {
             // featured-map is a special tag managed by Dan Pisut, the web map that has this tag will be used as default map
             let response = await searchGroupItems({
                 start: 1,
@@ -57,8 +58,16 @@ const MapViewContainer = () => {
 
             const item = response?.results[0] as IItem;
 
-            dispatch(setActiveMap(item));
+            dispatch(setActiveItem(item));
         }
+    };
+
+    const getWebMapId = () => {
+        if (!activeItem || activeItem.type !== 'Web Map') {
+            return BACKGROUND_WEB_MAP_ID;
+        }
+
+        return activeItem.id;
     };
 
     useEffect(() => {
@@ -75,9 +84,9 @@ const MapViewContainer = () => {
                 right: 0,
             }}
         >
-            {activeWebmap ? (
+            {activeItem ? (
                 <MapView
-                    webmapId={activeWebmap.id}
+                    webmapId={getWebMapId()}
                     zoom={mapCenterFromHashParam?.zoom}
                     center={
                         mapCenterFromHashParam

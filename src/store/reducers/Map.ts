@@ -10,42 +10,42 @@ import { updateWebmapIdInHash } from '../../utils/hash-params-manager/hashParams
 import { IItem } from '@esri/arcgis-rest-portal';
 
 type MapState = {
-    activeWebmap: IItem;
+    activeItem: IItem;
     // mapCenter: string;
 };
 
 export const initialMapState = {
-    activeWebmap: null,
+    activeItem: null,
 } as MapState;
 
 const slice = createSlice({
     name: 'map',
     initialState: initialMapState,
     reducers: {
-        activeMapChanged: (state, action: PayloadAction<IItem>) => {
-            state.activeWebmap = action.payload;
+        activeItemChanged: (state, action: PayloadAction<IItem>) => {
+            state.activeItem = action.payload;
         },
     },
 });
 
 const { reducer } = slice;
 
-const { activeMapChanged } = slice.actions;
+const { activeItemChanged } = slice.actions;
 
-export const setActiveMap =
+export const setActiveItem =
     (item: IItem) =>
     (
         dispatch: StoreDispatch
         // getState:StoreGetState
     ) => {
         updateWebmapIdInHash(item.id);
-        dispatch(activeMapChanged(item));
+        dispatch(activeItemChanged(item));
     };
 
 // selector
-export const activeWebmapSelector = createSelector(
-    (state: RootState) => state.Map.activeWebmap,
-    (activeWebmap) => activeWebmap
+export const activeItemSelector = createSelector(
+    (state: RootState) => state.Map.activeItem,
+    (activeItem) => activeItem
 );
 
 export default reducer;

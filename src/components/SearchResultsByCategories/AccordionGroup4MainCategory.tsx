@@ -2,7 +2,7 @@ import { IItem } from '@esri/arcgis-rest-portal';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { activeWebmapSelector, setActiveMap } from '../../store/reducers/Map';
+import { activeItemSelector, setActiveItem } from '../../store/reducers/Map';
 import SearchResultByCategory from './SearchResultByCategory';
 
 type AccordionGroup4MainCategoryProps = {
@@ -17,7 +17,7 @@ export const AccordionGroup4MainCategory: React.FC<
 
     const dispatch = useDispatch();
 
-    const activeItem: IItem = useSelector(activeWebmapSelector);
+    const activeItem: IItem = useSelector(activeItemSelector);
 
     if (!items.length) {
         return null;
@@ -63,7 +63,7 @@ export const AccordionGroup4MainCategory: React.FC<
                         items={items}
                         activeItem={activeItem}
                         onSelect={(item) => {
-                            dispatch(setActiveMap(item));
+                            dispatch(setActiveItem(item));
                         }}
                     />
                 </div>
