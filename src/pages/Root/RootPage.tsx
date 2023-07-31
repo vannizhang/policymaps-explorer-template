@@ -9,7 +9,7 @@ import {
     CategoryFilter,
     MapViewContainer,
 } from '../../components';
-import { APP_TITLE } from '../../config';
+import { APP_TITLE, HIDE_MY_COLLECTIONS } from '../../config';
 import { AppContext } from '../../contexts/AppContextProvider';
 
 const RootPage = () => {
@@ -38,7 +38,7 @@ const RootPage = () => {
 
                     <CategoryFilter />
 
-                    <MyCollections />
+                    {HIDE_MY_COLLECTIONS === false && <MyCollections />}
 
                     <SearchResults />
                 </Sidebar>

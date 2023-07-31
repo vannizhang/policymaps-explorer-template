@@ -11,6 +11,7 @@ import {
     toggleCollectionItem,
 } from '../../store/reducers/MyCollections';
 import { IItem } from '@esri/arcgis-rest-portal';
+import { HIDE_MY_COLLECTIONS } from '../../config';
 // import { SearchResponse } from '../../utils/arcgis-online-group-data';
 
 interface Props {
@@ -48,6 +49,7 @@ const CardListContainer: React.FC<Props> = ({
             data={cardListData}
             itemCount={itemCount}
             title={title}
+            shouldHideCollectButton={HIDE_MY_COLLECTIONS}
             viewBtnOnClick={(item) => {
                 dispatch(setActiveMap(item as IItem));
             }}

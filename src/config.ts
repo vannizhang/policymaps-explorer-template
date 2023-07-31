@@ -9,3 +9,8 @@ export const AGOL_HOST = 'https://www.arcgis.com';
  * Title of this explore app
  */
 export const APP_TITLE = 'App Title';
+
+/**
+ * if true, hide 'My Collection' component should be included or not
+ */
+export const HIDE_MY_COLLECTIONS = false;

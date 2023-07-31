@@ -16,6 +16,7 @@ interface Props {
     title: string;
     data: CardListData[];
     itemCount: number;
+    shouldHideCollectButton?: boolean;
     viewBtnOnClick: (item: IItem) => void;
     toggleCollectBtnOnClick: (item: IItem) => void;
 }
@@ -24,6 +25,7 @@ const CardList: React.FC<Props> = ({
     title = '',
     data = [],
     itemCount = 0,
+    shouldHideCollectButton = false,
     toggleCollectBtnOnClick,
     viewBtnOnClick,
 }: Props) => {
@@ -48,6 +50,7 @@ const CardList: React.FC<Props> = ({
                         itemId={id}
                         imageUrl={getThumbnailURL({ item })}
                         item={item}
+                        hideCollectButton={shouldHideCollectButton}
                         isActiveItemOnMap={isActiveItemOnMap}
                         isInCollection={inCollection}
                         viewBtnOnClick={viewBtnOnClick}

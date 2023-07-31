@@ -10,6 +10,7 @@ interface Props {
     itemId: string;
     imageUrl: string;
     item?: IItem;
+    hideCollectButton?: boolean;
 
     isActiveItemOnMap?: boolean;
     isInCollection?: boolean;
@@ -21,10 +22,9 @@ const RegularCard: React.FC<Props> = ({
     title,
     link,
     description,
-    itemId,
     imageUrl,
     item,
-
+    hideCollectButton = false,
     isActiveItemOnMap = false,
     isInCollection = false,
 
@@ -80,7 +80,9 @@ const RegularCard: React.FC<Props> = ({
                             'btn-clear': !isActiveItemOnMap,
                         })}
                         style={{
-                            width: '48%',
+                            flexGrow: '1',
+                            flexShrink: 0,
+                            flexBasis: '50%',
                             margin: '0 .1rem',
                         }}
                         onClick={viewBtnOnClick.bind(this, item)}
@@ -88,18 +90,22 @@ const RegularCard: React.FC<Props> = ({
                         View
                     </div>
 
-                    <div
-                        className={classnames('btn btn-small text-center', {
-                            'btn-clear': !isInCollection,
-                        })}
-                        style={{
-                            width: '48%',
-                            margin: '0 .1rem',
-                        }}
-                        onClick={toggleCollectBtnOnClick.bind(this, item)}
-                    >
-                        {isInCollection ? 'Remove' : 'Collect'}
-                    </div>
+                    {hideCollectButton === false && (
+                        <div
+                            className={classnames('btn btn-small text-center', {
+                                'btn-clear': !isInCollection,
+                            })}
+                            style={{
+                                flexGrow: '1',
+                                flexShrink: 0,
+                                flexBasis: '50%',
+                                margin: '0 .1rem',
+                            }}
+                            onClick={toggleCollectBtnOnClick.bind(this, item)}
+                        >
+                            {isInCollection ? 'Remove' : 'Collect'}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
